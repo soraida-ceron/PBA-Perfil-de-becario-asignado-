@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil Profesional del Becario Asignado (PPBA)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#E8186D;--navy:#1A2B5F;--cyan:#2DC7ED;
+  --yellow:#FFD600;--lime:#7DC52A;--purple:#6B4FA0;
+  --bg:#F7F8FC;--text:#1A1A2E;--gray:#6B7280;--light:#E5E7EB;
+  --shadow:0 4px 24px rgba(26,43,95,.10);--shadowlg:0 8px 40px rgba(26,43,95,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.hdr{background:var(--navy);padding:14px 26px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-size:13px;font-weight:900;color:var(--cyan);letter-spacing:2px}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.badge{background:var(--pink);color:#fff;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:1.5px}
+.prog-pct{font-size:12px;font-weight:800;color:rgba(255,255,255,.45);letter-spacing:1px}
+.pbar-wrap{background:rgba(26,43,95,.15);height:4px}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .6s cubic-bezier(.4,0,.2,1);border-radius:0 2px 2px 0}
+.mod-pill{text-align:center;padding:9px;background:#fff;border-bottom:1px solid var(--light)}
+.mod-pill span{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gray)}
+.mod-pill strong{font-size:10px;font-weight:900;letter-spacing:2px;color:var(--pink)}
+.wrap{max-width:720px;margin:0 auto;padding:32px 18px 70px}
+.screen{display:none}.screen.active{display:block;animation:up .38s cubic-bezier(.4,0,.2,1)}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* WELCOME */
+.hero{text-align:center;padding:44px 16px 32px}
+.ppba-tag{display:inline-block;background:var(--navy);color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:3px;padding:6px 18px;border-radius:30px;margin-bottom:18px}
+.hero-title{font-size:34px;font-weight:900;color:var(--navy);line-height:1.15;margin-bottom:10px}
+.hero-title span{color:var(--pink)}
+.hero-title em{font-style:normal;font-size:20px;font-weight:700;color:var(--gray);display:block;margin-top:4px}
+.hero-phrase{font-size:13px;font-weight:600;font-style:italic;color:var(--purple);line-height:1.75;max-width:460px;margin:0 auto 26px;padding:16px 20px;background:linear-gradient(135deg,rgba(107,79,160,.07),rgba(45,199,237,.07));border-radius:12px;border-left:3px solid var(--purple)}
+.hero-desc{font-size:13px;font-weight:500;color:var(--gray);line-height:1.75;max-width:480px;margin:0 auto 28px}
+.modules-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:560px;margin:0 auto 28px}
+.mp{background:#fff;border-radius:12px;padding:12px 10px;text-align:center;border:2px solid var(--light)}
+.mp-ico{font-size:20px;margin-bottom:4px}.mp-name{font-size:10px;font-weight:800;color:var(--navy);letter-spacing:.5px}
+.fcard{background:#fff;border-radius:18px;padding:26px;box-shadow:var(--shadow);max-width:520px;margin:0 auto}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.flbl{font-size:10px;font-weight:800;color:var(--navy);display:block;margin-bottom:5px;letter-spacing:.8px;margin-top:12px;text-transform:uppercase}
+.flbl:first-child{margin-top:0}
+.finp{width:100%;border:2px solid var(--light);border-radius:9px;padding:10px 13px;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:500;color:var(--text);transition:border-color .2s}
+.finp:focus{outline:none;border-color:var(--cyan)}
+.finp-note{font-size:11px;font-weight:500;color:var(--gray);margin-top:4px}
+
+/* MODULE HEADER */
+.mhdr{margin-bottom:22px}
+.mtag{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:10px;font-weight:800;letter-spacing:2px;padding:5px 14px;border-radius:20px;margin-bottom:10px}
+.mtitle{font-size:28px;font-weight:900;color:var(--navy);margin-bottom:6px}
+.mdesc{font-size:13px;font-weight:500;color:var(--gray);line-height:1.68;max-width:580px}
+
+/* PROPÓSITO */
+.purpose-card{background:linear-gradient(135deg,var(--navy),var(--purple));border-radius:18px;padding:28px;margin-bottom:16px}
+.purpose-prompt{font-size:22px;font-weight:800;font-style:italic;color:var(--cyan);margin-bottom:16px;line-height:1.4}
+.purpose-area{width:100%;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.15);border-radius:12px;padding:16px;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:500;color:#fff;resize:vertical;min-height:130px;line-height:1.7;transition:border-color .2s}
+.purpose-area::placeholder{color:rgba(255,255,255,.35)}
+.purpose-area:focus{outline:none;border-color:var(--cyan)}
+.char-c{text-align:right;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);margin-top:6px}
+
+/* QUESTIONS */
+.qcard{background:#fff;border-radius:13px;padding:20px;box-shadow:var(--shadow);margin-bottom:12px}
+.qnum{font-size:10px;font-weight:800;letter-spacing:2px;margin-bottom:5px}
+.qtxt{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:15px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{border:2px solid var(--light);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .2s;font-size:13px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:10px;background:#fff;text-align:left;width:100%;font-family:'Montserrat',sans-serif}
+.opt:hover{border-color:var(--cyan);background:#f0fbff}
+.opt.sel{border-color:var(--pink);background:#fff0f6;color:var(--pink);font-weight:700}
+.dot{width:16px;height:16px;border:2px solid var(--light);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;transition:all .2s}
+.opt.sel .dot{background:var(--pink);border-color:var(--pink);color:#fff}
+
+/* CHIPS */
+.chip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.chip-opt{border:2px solid var(--light);border-radius:10px;padding:11px 13px;cursor:pointer;transition:all .2s;font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;background:#fff;width:100%;text-align:left;font-family:'Montserrat',sans-serif}
+.chip-opt:hover{border-color:var(--cyan);background:#f0fbff}
+.chip-opt.sel{border-color:var(--purple);background:#f5f0ff;color:var(--purple)}
+.chip-ico{font-size:16px;flex-shrink:0}
+.open-field{margin-top:12px}
+.open-inp{width:100%;border:2px solid var(--light);border-radius:9px;padding:10px 13px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;color:var(--text);transition:border-color .2s}
+.open-inp:focus{outline:none;border-color:var(--cyan)}
+
+/* BUTTONS */
+.btn{border:none;border-radius:12px;padding:12px 30px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;letter-spacing:.5px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn-pink{background:var(--pink);color:#fff}.btn-pink:hover{background:#c91460;transform:translateY(-2px);box-shadow:0 6px 18px rgba(232,24,109,.3)}
+.btn-ghost{background:transparent;color:var(--gray);border:2px solid var(--light)}.btn-ghost:hover{border-color:var(--gray);color:var(--text)}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:#0f1a3a;transform:translateY(-2px)}
+.btn-lime{background:var(--lime);color:#fff}.btn-lime:hover{background:#5da015;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--pink);border:2px solid var(--pink)}.btn-outline:hover{background:var(--pink);color:#fff}
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:22px}
+.vmsg{color:var(--pink);font-size:11px;font-weight:700;margin-top:6px;display:none}
+
+/* RESULTS */
+.res-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--purple) 100%);border-radius:20px;padding:30px;text-align:center;margin-bottom:20px}
+.res-ppba{font-size:10px;font-weight:800;letter-spacing:3px;color:var(--cyan);margin-bottom:6px}
+.res-name{font-size:36px;font-weight:900;color:#fff;margin-bottom:4px;line-height:1.15}
+.res-meta{font-size:12px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.5px}
+.res-tabs{display:flex;margin-bottom:20px;background:#fff;border-radius:14px;padding:5px;box-shadow:var(--shadow)}
+.tab{flex:1;padding:11px;text-align:center;font-size:12px;font-weight:800;letter-spacing:.5px;cursor:pointer;border-radius:10px;transition:all .2s;color:var(--gray)}
+.tab.active{background:var(--navy);color:#fff}
+.tab-c{display:none}.tab-c.active{display:block;animation:up .3s ease}
+
+/* SELF TAB */
+.purpose-display{background:linear-gradient(135deg,var(--navy),var(--purple));border-radius:16px;padding:24px;margin-bottom:14px;text-align:center}
+.purpose-display-q{font-size:10px;font-weight:800;color:rgba(255,255,255,.5);letter-spacing:2px;margin-bottom:10px}
+.purpose-display-txt{font-size:16px;font-weight:600;font-style:italic;color:var(--cyan);line-height:1.65}
+.self-block{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:12px}
+.sb-label{font-size:10px;font-weight:800;letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.sb-value{font-size:16px;font-weight:900;color:var(--navy);margin-bottom:5px}
+.sb-hint{font-size:12px;font-weight:500;color:var(--gray);line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.motbars{display:flex;flex-direction:column;gap:8px}
+.motbar-row{display:flex;align-items:center;gap:10px}
+.motbar-name{font-size:11px;font-weight:700;color:var(--navy);width:86px;flex-shrink:0}
+.motbar-track{flex:1;background:var(--light);border-radius:4px;height:7px;overflow:hidden}
+.motbar-fill{height:100%;border-radius:4px;transition:width .9s cubic-bezier(.4,0,.2,1)}
+.motbar-score{font-size:10px;font-weight:800;color:var(--gray);width:28px;text-align:right}
+.chips-display{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.chip-d{background:var(--bg);border:2px solid var(--light);border-radius:28px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:5px}
+
+/* LEADER TAB */
+.pcard{background:#fff;border-radius:16px;overflow:hidden;box-shadow:var(--shadowlg);margin-bottom:14px}
+.pcard-head{padding:18px 22px 14px;display:flex;align-items:center;gap:12px}
+.pcard-ico{font-size:26px;width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pcard-meta strong{font-size:13px;font-weight:900;display:block;letter-spacing:.5px}
+.pcard-meta span{font-size:11px;font-weight:500;opacity:.82}
+.pcard-body{padding:0 22px 22px}
+.tip-box{background:var(--bg);border-radius:10px;padding:12px 15px;margin-bottom:8px}
+.tip-lbl{font-size:10px;font-weight:800;letter-spacing:2px;margin-bottom:4px;opacity:.65}
+.tip-txt{font-size:13px;font-weight:500;line-height:1.65;color:var(--text)}
+.mbadge{display:inline-flex;align-items:center;gap:5px;background:#fff;border:2px solid var(--light);border-radius:28px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--navy);margin:2px}
+.h-pink{background:linear-gradient(135deg,#E8186D,#ff6b9d);color:#fff}
+.h-cyan{background:linear-gradient(135deg,#2DC7ED,#00a8cc);color:#fff}
+.h-navy{background:linear-gradient(135deg,#1A2B5F,#2d4a8f);color:#fff}
+.h-lime{background:linear-gradient(135deg,#7DC52A,#5da015);color:#fff}
+.h-purple{background:linear-gradient(135deg,#6B4FA0,#9b59b6);color:#fff}
+.h-yellow{background:linear-gradient(135deg,#e6b800,#FFD600);color:var(--navy)}
+.quote-box{background:var(--navy);border-radius:16px;padding:24px;text-align:center;margin:20px 0}
+.quote-txt{font-size:15px;font-weight:700;font-style:italic;color:var(--cyan);line-height:1.65}
+.quote-by{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);margin-top:8px;letter-spacing:2px}
+.ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.ctx-block{background:var(--bg);border-radius:10px;padding:12px 14px}
+.ctx-lbl{font-size:9px;font-weight:800;letter-spacing:2px;color:var(--gray);margin-bottom:4px}
+.ctx-val{font-size:13px;font-weight:700;color:var(--navy)}
+
+/* SEND */
+.sending-msg{font-size:13px;font-weight:700;color:var(--gray);display:none;text-align:center;margin-top:10px}
+.sent-ok{background:var(--lime);color:#fff;border-radius:12px;padding:13px 20px;font-size:13px;font-weight:800;display:none;animation:up .3s ease;text-align:center;margin-top:10px}
+.sent-err{background:#fee2e2;color:#dc2626;border-radius:12px;padding:13px 20px;font-size:13px;font-weight:700;display:none;animation:up .3s ease;text-align:center;margin-top:10px}
+.action-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;padding-bottom:50px;margin-top:14px}
+
+@media(max-width:560px){
+  .chip-grid,.grid2,.frow,.ctx-grid{grid-template-columns:1fr}
+  .hero-title{font-size:26px}.mtitle{font-size:22px}.res-name{font-size:26px}
+  .modules-preview{grid-template-columns:repeat(2,1fr)}
+  .btn-row{flex-direction:column-reverse}.btn-row .btn{width:100%;justify-content:center}
+}
+@media print{
+  .hdr,.pbar-wrap,.mod-pill,.action-row,.res-tabs,.btn-row,.sending-msg,.sent-ok,.sent-err{display:none!important}
+  .wrap{padding:0}
+  .screen{display:block!important}
+  #sc-welcome,#sc-proposito,#sc-motivadores,#sc-fortalezas,#sc-zona,#sc-aprendizaje,#sc-comunicacion,#sc-errores,#sc-contexto,#sc-madurez{display:none!important}
+  #sc-results{display:block!important}
+  .tab-c{display:block!important}
+  .pcard{box-shadow:none;border:1px solid #eee;page-break-inside:avoid;margin-bottom:10px}
+}
+</style>
+</head>
+<body>
+
+<script>const APPS_SCRIPT_URL="https://script.google.com/macros/s/TU_URL_AQUI/exec";</script>
+
+<div class="hdr">
+  <div class="logo">PPBA</div>
+  <div class="hdr-right">
+    <span class="prog-pct" id="pctLbl">0%</span>
+    <div class="badge">PERFIL DEL BECARIO</div>
+  </div>
+</div>
+<div class="pbar-wrap"><div class="pbar-fill" id="pbar" style="width:0%"></div></div>
+<div class="mod-pill"><span id="modLabel">INICIO · </span><strong id="modName">Perfil Profesional del Becario Asignado (PPBA)</strong></div>
+
+<div class="wrap">
+
+<!-- ══ WELCOME ══ -->
+<div class="screen active" id="sc-welcome">
+  <div class="hero">
+    <div class="ppba-tag">PPBA</div>
+    <div class="hero-title">Perfil Profesional del<br><span>Becario Asignado</span><em>(PPBA)</em></div>
+    <div class="hero-phrase">"Liderar con empatía no es solo conocer a tu equipo — es permitirte ser conocido por él para que el talento florezca donde otros solo ven potencial sin desarrollar."</div>
+    <p class="hero-desc">Este no es un examen. Es una radiografía que el Programa de Becarios comparte con tu líder para trabajar mejor juntos desde el día uno. Responde con honestidad.</p>
+    <div class="modules-preview">
+      <div class="mp"><div class="mp-ico">📌</div><div class="mp-name">PROPÓSITO</div></div>
+      <div class="mp"><div class="mp-ico">⭐</div><div class="mp-name">MOTIVADORES</div></div>
+      <div class="mp"><div class="mp-ico">💪</div><div class="mp-name">FORTALEZAS</div></div>
+      <div class="mp"><div class="mp-ico">🎯</div><div class="mp-name">ZONA DE RETO</div></div>
+      <div class="mp"><div class="mp-ico">👁️</div><div class="mp-name">APRENDIZAJE</div></div>
+      <div class="mp"><div class="mp-ico">💬</div><div class="mp-name">COMUNICACIÓN</div></div>
+      <div class="mp"><div class="mp-ico">⚡</div><div class="mp-name">ERRORES</div></div>
+      <div class="mp"><div class="mp-ico">🌍</div><div class="mp-name">CONTEXTO</div></div>
+      <div class="mp"><div class="mp-ico">📊</div><div class="mp-name">MADUREZ</div></div>
+    </div>
+    <div class="fcard">
+      <div class="frow">
+        <div><label class="flbl">Nombre Completo *</label><input class="finp" id="fNombre" placeholder="Tu nombre completo"></div>
+        <div><label class="flbl">Carrera *</label><input class="finp" id="fCarrera" placeholder="Ej. Administración, TI..."></div>
+      </div>
+      <div class="frow">
+        <div><label class="flbl">Universidad</label><input class="finp" id="fUniv" placeholder="Ej. IPN, UNAM, UNITEC..."></div>
+        <div><label class="flbl">WhatsApp</label><input class="finp" id="fWA" placeholder="55 1234 5678" type="tel"></div>
+      </div>
+      <label class="flbl">Correo de tu Jefe Directo</label>
+      <input class="finp" id="fJefe" placeholder="jefe@empresa.com" type="email">
+      <p class="finp-note">Su vista de liderazgo llegará a este correo al finalizar.</p>
+      <p class="vmsg" id="vm0">Por favor completa tu nombre y carrera para continuar.</p>
+      <button class="btn btn-pink" onclick="startTest()" style="width:100%;justify-content:center;margin-top:14px">COMENZAR MI PERFIL →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 1. PROPÓSITO ══ -->
+<div class="screen" id="sc-proposito">
+  <div class="mhdr">
+    <div class="mtag" style="background:var(--purple)">📌 SECCIÓN 1 DE 9</div>
+    <div class="mtitle">Mi Propósito</div>
+    <p class="mdesc">No hay respuesta correcta. Solo queremos escucharte con tus propias palabras.</p>
+  </div>
+  <div class="purpose-card">
+    <div class="purpose-prompt">"¿Para qué estás aquí?"</div>
+    <textarea class="purpose-area" id="purposeTxt" placeholder="Escribe con tus propias palabras. Puede ser algo grande o algo concreto — lo que sea real para ti." maxlength="500" oninput="document.getElementById('purposeC').textContent=this.value.length"></textarea>
+    <div class="char-c"><span id="purposeC">0</span>/500</div>
+  </div>
+  <p class="vmsg" id="vm-prop">Cuéntanos aunque sea una línea.</p>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="go('sc-welcome',0,'INICIO','Perfil Profesional del Becario Asignado (PPBA)')">← Atrás</button>
+    <button class="btn btn-pink" onclick="next('prop')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══ 2. MOTIVADORES ══ -->
+<div class="screen" id="sc-motivadores">
+  <div class="mhdr">
+    <div class="mtag" style="background:var(--pink)">⭐ SECCIÓN 2 DE 9</div>
+    <div class="mtitle">¿Qué te mueve?</div>
+    <p class="mdesc">Elige la opción que mejor te describe en cada situación. No hay respuesta correcta — elige la que sientas más honesta.</p>
+  </div>
+  <div id="motQ"></div>
+  <p class="vmsg" id="vm-mot">Responde todas las preguntas para continuar.</p>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="go('sc-proposito',5,'SECCIÓN 1','Mi Propósito')">← Atrás</button>
+    <button class="btn btn-pink" onclick="next('mot')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══ 3. FORTALEZAS ══ -->
+<div class="screen" id="sc-fortalezas">
+  <div class="mhdr">
+    <div class="mtag" style="background:var(--lime)">💪 SECCIÓN 3 DE 9</div>
+    <div class="mtitle">Mis Fortalezas</div>
+    <p class="mdesc">¿En qué crees que eres bueno/a? No lo que deberías ser — lo que realmente eres.</p>
+  </div>
+  <div class="chip-grid">
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Aprendo rápido')"><div class="chip-ico">⚡</div>Aprendo rápido</div>
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Soy buen comunicador/a')"><div class="chip-ico">🗣️</div>Soy buen comunicador/a</div>
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Me adapto fácil a los cambios')"><div class="chip-ico">🔄</div>Me adapto fácil</div>
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Soy organizado/a')"><div class="chip-ico">📋</div>Soy organizado/a</div>
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Soy proactivo/a')"><div class="chip-ico">🚀</div>Soy proactivo/a</div>
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Trabajo bien en equipo')"><div class="chip-ico">🤝</div>Trabajo bien en equipo</div>
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Soy creativo/a')"><div class="chip-ico">💡</div>Soy creativo/a</div>
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Soy detallista')"><div class="chip-ico">🔍</div>Soy detallista</div>
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Manejo bien la presión')"><div class="chip-ico">🧠</div>Manejo bien la presión</div>
+    <div class="chip-opt" onclick="toggleChip(this,'fort','Soy autodidacta')"><div class="chip-ico">📚</div>Soy autodidacta</div>
+  </div>
+  <div class="open-field"><input class="open-inp" id="fortExtra" placeholder="¿Alguna fortaleza que no está aquí? Escríbela..."></div>
+  <p class="vmsg" id="vm-fort">Elige al menos una fortaleza.</p>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="go('sc-motivadores',16,'SECCIÓN 2','Mis Motivadores')">← Atrás</button>
+    <button class="btn btn-pink" onclick="next('fort')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══ 4. ZONA DE RETO ══ -->
+<div class="screen" id="sc-zona">
+  <div class="mhdr">
+    <div class="mtag" style="background:var(--cyan);color:var(--navy)">🎯 SECCIÓN 4 DE 9</div>
+    <div class="mtitle">Mi Zona de Reto</div>
+    <p class="mdesc">¿Qué quieres aprender o mejorar durante esta práctica? Esto le dice a tu líder hacia dónde apuntarte.</p>
+  </div>
+  <div class="chip-grid">
+    <div class="chip-opt" onclick="toggleChip(this,'zona','Hablar en público con seguridad')"><div class="chip-ico">🎤</div>Hablar en público</div>
+    <div class="chip-opt" onclick="toggleChip(this,'zona','Trabajo en equipo')"><div class="chip-ico">👥</div>Trabajo en equipo</div>
+    <div class="chip-opt" onclick="toggleChip(this,'zona','Gestión del tiempo')"><div class="chip-ico">⏱️</div>Gestión del tiempo</div>
+    <div class="chip-opt" onclick="toggleChip(this,'zona','Liderazgo y toma de decisiones')"><div class="chip-ico">⚡</div>Liderazgo</div>
+    <div class="chip-opt" onclick="toggleChip(this,'zona','Habilidades técnicas de mi carrera')"><div class="chip-ico">🔧</div>Habilidades técnicas</div>
+    <div class="chip-opt" onclick="toggleChip(this,'zona','Comunicación con figuras de autoridad')"><div class="chip-ico">💼</div>Comunicación con autoridad</div>
+    <div class="chip-opt" onclick="toggleChip(this,'zona','Tomar decisiones bajo presión')"><div class="chip-ico">🎯</div>Decisiones bajo presión</div>
+    <div class="chip-opt" onclick="toggleChip(this,'zona','Organización y planificación')"><div class="chip-ico">📌</div>Organización</div>
+  </div>
+  <div class="open-field"><input class="open-inp" id="zonaExtra" placeholder="¿Algo más que quieras desarrollar?"></div>
+  <p class="vmsg" id="vm-zona">Elige al menos un área de desarrollo.</p>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="go('sc-fortalezas',27,'SECCIÓN 3','Mis Fortalezas')">← Atrás</button>
+    <button class="btn btn-pink" onclick="next('zona')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══ 5. APRENDIZAJE ══ -->
+<div class="screen" id="sc-aprendizaje">
+  <div class="mhdr">
+    <div class="mtag" style="background:var(--cyan);color:var(--navy)">👁️ SECCIÓN 5 DE 9</div>
+    <div class="mtitle">¿Cómo aprendes?</div>
+    <p class="mdesc">Elige la opción que mejor te describe. No hay respuesta correcta.</p>
+  </div>
+  <div id="learnQ"></div>
+  <p class="vmsg" id="vm-learn">Responde todas las preguntas.</p>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="go('sc-zona',38,'SECCIÓN 4','Mi Zona de Reto')">← Atrás</button>
+    <button class="btn btn-pink" onclick="next('learn')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══ 6. COMUNICACIÓN ══ -->
+<div class="screen" id="sc-comunicacion">
+  <div class="mhdr">
+    <div class="mtag" style="background:var(--purple)">💬 SECCIÓN 6 DE 9</div>
+    <div class="mtitle">¿Cómo te comunicas?</div>
+    <p class="mdesc">Esto le ayuda a tu líder a entender cómo conectar contigo de la mejor manera.</p>
+  </div>
+  <div id="commQ"></div>
+  <p class="vmsg" id="vm-comm">Responde todas las preguntas.</p>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="go('sc-aprendizaje',49,'SECCIÓN 5','Cómo Aprendo')">← Atrás</button>
+    <button class="btn btn-pink" onclick="next('comm')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══ 7. ERRORES ══ -->
+<div class="screen" id="sc-errores">
+  <div class="mhdr">
+    <div class="mtag" style="background:var(--yellow);color:var(--navy)">⚡ SECCIÓN 7 DE 9</div>
+    <div class="mtitle">¿Cómo reaccionas ante los errores?</div>
+    <p class="mdesc">El error es parte del aprendizaje. Esta información le ayuda a tu líder a acompañarte mejor.</p>
+  </div>
+  <div id="errorQ"></div>
+  <p class="vmsg" id="vm-err">Responde todas las preguntas.</p>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="go('sc-comunicacion',60,'SECCIÓN 6','Cómo Me Comunico')">← Atrás</button>
+    <button class="btn btn-pink" onclick="next('err')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══ 8. CONTEXTO ══ -->
+<div class="screen" id="sc-contexto">
+  <div class="mhdr">
+    <div class="mtag" style="background:var(--navy)">🌍 SECCIÓN 8 DE 9</div>
+    <div class="mtitle">Mi Contexto</div>
+    <p class="mdesc">No es un filtro. Es para que tu líder entienda tu realidad y pueda acompañarte con más inteligencia.</p>
+  </div>
+  <div id="ctxQ"></div>
+  <p class="vmsg" id="vm-ctx">Responde ambas preguntas.</p>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="go('sc-errores',71,'SECCIÓN 7','Errores')">← Atrás</button>
+    <button class="btn btn-pink" onclick="next('ctx')">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══ 9. MADUREZ ══ -->
+<div class="screen" id="sc-madurez">
+  <div class="mhdr">
+    <div class="mtag" style="background:var(--lime)">📊 SECCIÓN 9 DE 9</div>
+    <div class="mtitle">¿Qué tan listo/a estás?</div>
+    <p class="mdesc">Evalúate honestamente en estas cinco dimensiones. Solo la verdad sirve aquí.</p>
+  </div>
+  <div id="matQ"></div>
+  <p class="vmsg" id="vm-mat">Completa todas las dimensiones.</p>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="go('sc-contexto',82,'SECCIÓN 8','Mi Contexto')">← Atrás</button>
+    <button class="btn btn-pink" onclick="buildResults()">Ver Mi Perfil →</button>
+  </div>
+</div>
+
+<!-- ══ RESULTS ══ -->
+<div class="screen" id="sc-results">
+  <div class="res-hero">
+    <div class="res-ppba">PERFIL PROFESIONAL DEL BECARIO ASIGNADO (PPBA)</div>
+    <div class="res-name" id="rName"></div>
+    <div class="res-meta" id="rMeta"></div>
+  </div>
+  <div class="res-tabs">
+    <div class="tab active" onclick="switchTab('self')">🙋 Mi Autoconocimiento</div>
+    <div class="tab" onclick="switchTab('leader')">👔 Vista de mi Líder</div>
+  </div>
+  <div class="tab-c active" id="tab-self">
+    <div class="purpose-display">
+      <div class="purpose-display-q">📌 ¿PARA QUÉ ESTOY AQUÍ?</div>
+      <div class="purpose-display-txt" id="sk-purpose"></div>
+    </div>
+    <div class="self-block">
+      <div class="sb-label" style="color:var(--pink)">⭐ LO QUE MÁS TE MUEVE</div>
+      <div class="motbars" id="motBars"></div>
+    </div>
+    <div class="grid2">
+      <div class="self-block" style="margin-bottom:0"><div class="sb-label" style="color:var(--lime)">💪 MIS FORTALEZAS</div><div class="chips-display" id="sk-fort"></div></div>
+      <div class="self-block" style="margin-bottom:0"><div class="sb-label" style="color:var(--cyan)">🎯 QUIERO DESARROLLAR</div><div class="chips-display" id="sk-zona"></div></div>
+    </div>
+    <div class="grid2" style="margin-top:12px">
+      <div class="self-block" style="margin-bottom:0"><div class="sb-label" style="color:var(--cyan)">👁️ CÓMO APRENDO</div><div class="sb-value" id="sk-learn"></div><div class="sb-hint" id="sk-learn-h"></div></div>
+      <div class="self-block" style="margin-bottom:0"><div class="sb-label" style="color:var(--purple)">💬 MI COMUNICACIÓN</div><div class="sb-value" id="sk-comm"></div><div class="sb-hint" id="sk-comm-h"></div></div>
+    </div>
+    <div class="grid2" style="margin-top:12px">
+      <div class="self-block" style="margin-bottom:0"><div class="sb-label" style="color:var(--yellow)">⚡ ANTE LOS ERRORES</div><div class="sb-value" id="sk-err"></div><div class="sb-hint" id="sk-err-h"></div></div>
+      <div class="self-block" style="margin-bottom:0"><div class="sb-label" style="color:var(--lime)">📊 MI NIVEL ACTUAL</div><div class="sb-value" id="sk-mat"></div><div class="sb-hint" id="sk-mat-h"></div></div>
+    </div>
+    <div class="quote-box"><div class="quote-txt">"Conocerte es el primer paso para crecer con intención."</div><div class="quote-by">PROGRAMA DE BECARIOS</div></div>
+  </div>
+  <div class="tab-c" id="tab-leader">
+    <div id="leaderCards"></div>
+    <div class="quote-box"><div class="quote-txt">"Liderar con empatía permite que el talento florezca donde otros solo ven potencial sin desarrollar."</div><div class="quote-by">PROGRAMA DE BECARIOS</div></div>
+  </div>
+  <div class="sending-msg" id="sendingMsg">⏳ Enviando perfil...</div>
+  <div class="sent-ok" id="sentOk"></div>
+  <div class="sent-err" id="sentErr">⚠️ Hubo un error al enviar. Puedes descargar el PDF y compartirlo manualmente.</div>
+  <div class="action-row">
+    <button class="btn btn-lime" id="sendBtn" onclick="sendToLeader()">📤 ENVIAR A MI JEFE</button>
+    <button class="btn btn-navy" onclick="window.print()">🖨️ DESCARGAR PDF</button>
+    <button class="btn btn-outline" onclick="restart()">+ Nuevo Perfil</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ── MOTIVATORS DATA ──────────────────────────────────────────
+// 10 questions — one per motivator — 3-point behavioral scale
+const MOTIVATORS_META={
+  estatus:   {icon:'🏆',name:'Estatus',
+    self:'Te impulsa el reconocimiento. Buscas que tu trabajo sea visto y valorado por quienes te rodean.',
+    tip:'Dale visibilidad. Nómbralo cuando hace algo bien frente al equipo. Deja que presente su trabajo.'},
+  maestria:  {icon:'🎓',name:'Maestría',
+    self:'Te mueve crecer. Cada reto que te exige aprender algo nuevo te da energía.',
+    tip:'Dale retos un nivel arriba. Explícale el "por qué", no solo el "cómo". El aprendizaje es su recompensa.'},
+  libertad:  {icon:'🕊️',name:'Libertad',
+    self:'Necesitas autonomía. Trabajas mejor cuando confían en tu criterio y no te supervisan cada paso.',
+    tip:'Define el resultado esperado, no el proceso. Supervisa el output, no cada paso.'},
+  poder:     {icon:'⚡',name:'Poder',
+    self:'Te motiva influir. Te gusta tener voz en las decisiones y que tu aportación cuente.',
+    tip:'Deja que lidere algo pequeño: coordinar una actividad, proponer una mejora, explicar un proceso al equipo.'},
+  relaciones:{icon:'🤝',name:'Relaciones',
+    self:'El equipo importa. Las relaciones humanas son tu principal fuente de energía en el trabajo.',
+    tip:'Inclúyelo en la dinámica del equipo. Preséntalo con todos. Haz check-ins regulares aunque sean breves.'},
+  orden:     {icon:'📋',name:'Orden',
+    self:'La estructura te da seguridad. Rindes mejor cuando sabes exactamente qué se espera de ti.',
+    tip:'Estructura clara desde el día uno: expectativas definidas, horarios, roles explícitos. La incertidumbre lo paraliza.'},
+  curiosidad:{icon:'🔍',name:'Curiosidad',
+    self:'Eres explorador por naturaleza. Las preguntas sin respuesta te emocionan más que las respuestas fáciles.',
+    tip:'Ponle problemas sin solución evidente. Permítele investigar y proponer. No frenes sus preguntas.'},
+  aceptacion:{icon:'💛',name:'Aceptación',
+    self:'La aprobación social importa. Necesitas saber que vas bien y que tu trabajo es valorado.',
+    tip:'Valida su trabajo con especificidad y frecuencia: dile exactamente qué hizo bien y por qué importó.'},
+  honra:     {icon:'🌟',name:'Honra',
+    self:'Tus valores no son negociables. Trabajas mejor cuando lo que haces va de acuerdo con quien eres.',
+    tip:'Conecta su trabajo con los valores de la empresa. El "para qué" lo mantiene comprometido.'},
+  meta:      {icon:'🎯',name:'Meta',
+    self:'El propósito te sostiene. Necesitas entender para qué haces lo que haces, si no, pierdes energía.',
+    tip:'Ayúdale a ver cómo esta práctica conecta con su carrera y qué puertas le abre esta experiencia.'}
+};
+
+// 10 preguntas — una por motivador — escala conductual de 3 puntos
+// Sí, eso soy yo = 3 | A veces = 1 | No tanto = 0
+const MOT_Qs=[
+  {id:'estatus',   icon:'🏆', text:'Cuando hago algo bien, me importa que los demás lo noten y lo reconozcan públicamente.'},
+  {id:'maestria',  icon:'🎓', text:'Me emocionan más los retos que me exigen aprender algo nuevo que las tareas que ya domino.'},
+  {id:'libertad',  icon:'🕊️', text:'Trabajo mejor cuando puedo decidir cómo hacer las cosas, sin que me supervisen cada paso.'},
+  {id:'poder',     icon:'⚡', text:'Me gusta sentir que mi opinión influye en las decisiones del equipo o del proyecto.'},
+  {id:'relaciones',icon:'🤝', text:'El ambiente con mis compañeros es igual de importante que el trabajo mismo para mí.'},
+  {id:'orden',     icon:'📋', text:'Funciono mejor cuando sé exactamente qué se espera de mí y hay procesos y reglas claras.'},
+  {id:'curiosidad',icon:'🔍', text:'Me energiza tener problemas sin respuesta fácil y espacio para explorar ideas y hacer preguntas.'},
+  {id:'aceptacion',icon:'💛', text:'Necesito saber que las personas a mi alrededor aprueban lo que hago y cómo lo hago.'},
+  {id:'honra',     icon:'🌟', text:'Cuando lo que hago va en contra de mis valores personales, me cuesta mucho comprometerme.'},
+  {id:'meta',      icon:'🎯', text:'Necesito entender el "para qué" de lo que hago — si no veo el propósito, pierdo energía.'}
+];
+
+// ── OTHER QUESTION SETS ──────────────────────────────────────
+const LEARN_Qs=[
+  {text:'Cuando me explican algo nuevo, lo entiendo mejor...',opts:[{t:'Viendo un diagrama, esquema o ejemplo escrito',v:'visual'},{t:'Escuchando la explicación paso a paso',v:'auditivo'},{t:'Haciéndolo directamente, aunque me equivoque',v:'kinestesico'}]},
+  {text:'Si tengo que aprender algo nuevo, lo primero que hago es...',opts:[{t:'Buscar un manual o tutorial con imágenes',v:'visual'},{t:'Preguntar a alguien que ya lo haya hecho',v:'auditivo'},{t:'Intentarlo directamente y ajustar sobre la marcha',v:'kinestesico'}]},
+  {text:'Prefiero que me den instrucciones...',opts:[{t:'Por escrito, con pasos claros',v:'visual'},{t:'Que me las expliquen verbalmente',v:'auditivo'},{t:'Que me muestren haciéndolo y yo lo repito',v:'kinestesico'}]},
+  {text:'En una capacitación, lo que más me ayuda es...',opts:[{t:'Las diapositivas y materiales visuales',v:'visual'},{t:'La explicación del instructor',v:'auditivo'},{t:'Los ejercicios prácticos en tiempo real',v:'kinestesico'}]},
+  {text:'Cuando cometo un error, lo proceso mejor...',opts:[{t:'Escribiéndolo o esquematizando qué falló',v:'visual'},{t:'Contándoselo a alguien para entenderlo en voz alta',v:'auditivo'},{t:'Intentándolo de nuevo inmediatamente',v:'kinestesico'}]}
+];
+const LEARN_P={
+  visual:{label:'Visual',icon:'👁️',self:'Aprendes mejor viendo. Los diagramas y materiales escritos son tu idioma. Pide referencias visuales antes de arrancar.',tip:'Dale todo por escrito antes de que empiece. Usa diagramas de flujo y esquemas. El papel y la pantalla son sus mejores maestros.'},
+  auditivo:{label:'Auditivo',icon:'🎧',self:'Aprendes mejor escuchando. Las explicaciones verbales te ayudan a procesar. Pide que te expliquen antes de ejecutar.',tip:'Explícale en voz alta antes de que ejecute. Haz check-ins verbales. Pídele que te cuente lo que entendió antes de arrancar.'},
+  kinestesico:{label:'Kinestésico',icon:'🔧',self:'Aprendes haciendo. La práctica es tu mejor maestra. No te paralices planeando: lánzate y ajusta en el camino.',tip:'Ponlo a hacer desde el primer día. Supervisa mientras hace, no antes. El error controlado es su aula de aprendizaje.'}
+};
+const COMM_Qs=[
+  {text:'Prefiero recibir instrucciones...',opts:[{t:'Por escrito, claras y detalladas',v:'escrito'},{t:'Verbal, con espacio para preguntar',v:'verbal'},{t:'Con un ejemplo primero y luego intento',v:'ejemplo'}]},
+  {text:'Cuando cometo un error, prefiero que me lo digan...',opts:[{t:'En privado, solo tú y yo',v:'privado'},{t:'En el momento, aunque haya gente cerca',v:'directo'},{t:'Después, cuando haya tiempo para hablar',v:'despues'}]},
+  {text:'¿Con qué frecuencia necesitas saber si vas bien?',opts:[{t:'Seguido, me ayuda saber que voy por buen camino',v:'frecuente'},{t:'Solo cuando hay algo importante que corregir',v:'moderado'},{t:'Prefiero trabajar y que revisen al final',v:'autonomo'}]},
+  {text:'Cuando tengo una duda...',opts:[{t:'Pregunto de inmediato',v:'inmediato'},{t:'Primero intento resolverlo solo y si no puedo, pregunto',v:'primero-solo'},{t:'Prefiero escribir mis dudas antes de hablar',v:'escrito-duda'}]}
+];
+const COMM_SELF={'escrito':'Prefiero instrucciones por escrito.','verbal':'Prefiero explicaciones verbales con espacio para preguntar.','ejemplo':'Aprendo mejor con un ejemplo antes de ejecutar.','privado':'Recibo mejor el feedback en privado.','directo':'Acepto feedback directo aunque haya otros presentes.','despues':'Prefiero procesar el feedback con tiempo, no en caliente.','frecuente':'Necesito validación frecuente para mantenerme seguro.','moderado':'Solo necesito feedback cuando hay algo que corregir.','autonomo':'Prefiero autonomía total y revisión al final.','inmediato':'Pregunto de inmediato cuando tengo dudas.','primero-solo':'Intento resolver solo antes de preguntar.','escrito-duda':'Prefiero formular mis dudas por escrito antes de hablar.'};
+const COMM_LEADER={'escrito':'Mándale las instrucciones por escrito antes de la tarea.','verbal':'Explícale en voz alta y deja espacio para preguntas.','ejemplo':'Muéstrale con un ejemplo real antes de que ejecute.','privado':'Da el feedback siempre en privado, nunca frente a otros.','directo':'Puede recibir correcciones en el momento, sin rodeos.','despues':'Espera un momento tranquilo para dar retroalimentación.','frecuente':'Check-ins breves y frecuentes: "¿cómo vas?" hace la diferencia.','moderado':'No lo interrumpas si va bien — intervén solo cuando sea necesario.','autonomo':'Dale el objetivo y el plazo, y déjalo trabajar.','inmediato':'Mantén una línea de comunicación abierta: pregunta sin costo.','primero-solo':'Dale tiempo para intentarlo antes de intervenir.','escrito-duda':'Anímalo a escribirte sus dudas si no puede hablar en el momento.'};
+const ERROR_Qs=[
+  {text:'Si cometo un error que afecta a alguien más, lo primero que hago es...',opts:[{t:'Me bloqueo, no sé cómo reaccionar',v:'bloqueo'},{t:'Trato de arreglarlo solo antes de que alguien lo note',v:'oculta'},{t:'Lo reporto de inmediato y pregunto cómo resolverlo',v:'reporta'}]},
+  {text:'Cuando algo no me sale como esperaba...',opts:[{t:'Me frustro mucho y me cuesta seguir',v:'bloqueo'},{t:'Busco que no se note y sigo adelante',v:'oculta'},{t:'Analizo qué salió mal y lo intento de nuevo',v:'reporta'}]},
+  {text:'Si me señalan un error frente a otros...',opts:[{t:'Me paralizo, no puedo pensar bien',v:'bloqueo'},{t:'Defiendo mi versión aunque sepa que me equivoqué',v:'oculta'},{t:'Lo acepto, tomo nota y pregunto cómo mejorarlo',v:'reporta'}]},
+  {text:'Pido retroalimentación antes de que me la den...',opts:[{t:'Casi nunca, prefiero no llamar la atención',v:'bloqueo'},{t:'Solo cuando estoy seguro de que lo hice bien',v:'oculta'},{t:'Regularmente, aunque no haya terminado',v:'reporta'}]},
+  {text:'Si descubro que algo que entregué tiene un error...',opts:[{t:'Espero a ver si alguien lo nota',v:'bloqueo'},{t:'Lo corrijo calladamente sin decir nada',v:'oculta'},{t:'Lo reporto, lo corrijo y explico qué pasó',v:'reporta'}]}
+];
+const ERROR_P={
+  bloqueo:{label:'Se bloquea ante el error',icon:'🛑',self:'El error te paraliza por un momento. Practica pedir ayuda antes de que el problema crezca — es más fácil de lo que parece.',tip:'Necesita ambiente de cero castigo desde el día uno. Dile: "más vale que me avises antes que después." Empieza con tareas de bajo impacto.'},
+  oculta:{label:'Tiende a manejar el error solo',icon:'🎭',self:'Tu instinto es resolverlo antes de que alguien lo vea. Practica reportar a tiempo: avisar antes de que escale siempre tiene menor costo.',tip:'Crea rutinas de reporte: pregunta diariamente "¿qué trabas tuviste hoy?" Que sepa que reportar a tiempo nunca tiene costo.'},
+  reporta:{label:'Reporta abiertamente',icon:'✅',self:'Ya tienes el canal abierto. Eso es un diferenciador real en el entorno profesional. Documenta lo que aprendes de cada error.',tip:'Ya tiene el canal abierto. Pídele que documente errores y soluciones. Dale más autonomía y responsabilidad progresiva.'}
+};
+const MAT_Qs=[
+  {icon:'📌',name:'RESPONSABILIDAD',text:'Sin que nadie me lo recuerde, yo...',opts:[{t:'Espero instrucciones para cada cosa que hago',s:1},{t:'Cumplo lo definido pero no voy más allá',s:2},{t:'Anticipo, aviso si no puedo y busco soluciones',s:3}]},
+  {icon:'💬',name:'COMUNICACIÓN CON MI LÍDER',text:'Cuando necesito algo de mi jefe...',opts:[{t:'Evito molestarlo y prefiero no preguntar',s:1},{t:'Pregunto solo cuando ya no tengo opción',s:2},{t:'Pido espacio, llego con el problema y una propuesta',s:3}]},
+  {icon:'🔄',name:'ADAPTABILIDAD',text:'Si el plan cambia de último momento...',opts:[{t:'Me desestabilizo y necesito tiempo para reajustarme',s:1},{t:'Lo acepto pero mi rendimiento baja un poco',s:2},{t:'Me adapto rápido y propongo cómo avanzar',s:3}]},
+  {icon:'💡',name:'INICIATIVA',text:'Cuando termino mi tarea antes de tiempo...',opts:[{t:'Espero sin decir nada',s:1},{t:'Aviso que terminé y espero instrucciones',s:2},{t:'Propongo en qué más puedo ayudar',s:3}]},
+  {icon:'🏢',name:'CULTURA CORPORATIVA',text:'En cuanto a puntualidad, imagen y manejo de conflicto...',opts:[{t:'Tengo áreas de mejora en más de una',s:1},{t:'Cumplo lo básico pero sin consciencia del impacto',s:2},{t:'Lo vivo como parte de mi identidad profesional',s:3}]}
+];
+const MAT_P={
+  formacion:{badge:'🌱 En Formación',icon:'🌱',self:'Estás en la etapa inicial. Necesitas estructura y acompañamiento cercano — y eso está bien. Aprovecha cada instrucción para aprender el estándar profesional.',tip:'Check-ins diarios. Tareas pequeñas con instrucciones claras. Tu rol es guía cercano. Invierte tiempo ahora.'},
+  desarrollo:{badge:'⚙️ En Desarrollo',icon:'⚙️',self:'Ya tienes bases sólidas. Puedes operar en rutina con autonomía. Tu siguiente paso: tomar iniciativa sin esperar que te lo pidan.',tip:'Ya funciona en rutina. Dale tareas nuevas con más autonomía. Empieza a darle visibilidad dentro del equipo.'},
+  listo:{badge:'🚀 Candidato a Plantilla',icon:'🚀',self:'Tienes madurez profesional real. Eres candidato a quedarte. Documenta tus logros y pide retroalimentación directa.',tip:'Candidato real. Dale un proyecto propio con entregables y fecha. Conéctalo con el proceso de selección.'}
+};
+const CTX_Qs=[
+  {text:'¿Cuál es tu situación actual?',opts:[{t:'Solo estudio / hago servicio social',v:'Solo estudia'},{t:'Estudio y trabajo al mismo tiempo',v:'Estudia y trabaja'},{t:'Solo trabajo',v:'Solo trabaja'}]},
+  {text:'¿Qué tan lejos vives del lugar donde haces tu práctica?',opts:[{t:'Menos de 30 minutos',v:'Menos de 30 min'},{t:'Entre 30 minutos y 1 hora',v:'30 min – 1 hora'},{t:'Más de 1 hora',v:'Más de 1 hora'}]}
+];
+
+// ── STATE ─────────────────────────────────────────────────────
+const S={nombre:'',carrera:'',univ:'',wa:'',jefe:'',purpose:'',motScores:{},motAnswers:[],fort:[],fortExtra:'',zona:[],zonaExtra:'',learn:[],comm:[],err:[],ctx:[],mat:[]};
+let RESULT_DATA={};
+
+// ── INIT ──────────────────────────────────────────────────────
+function init(){
+  // Motivator questions — 10 statements, 3-point behavioral scale
+  const scaleOpts=[
+    {t:'Sí, eso soy yo',s:3},
+    {t:'A veces',s:1},
+    {t:'No tanto',s:0}
+  ];
+  document.getElementById('motQ').innerHTML=MOT_Qs.map((q,i)=>`
+    <div class="qcard">
+      <div class="qnum" style="color:var(--pink)">MOTIVADORES · ${i+1} DE ${MOT_Qs.length}</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:22px">${q.icon}</span>
+        <div class="qtxt" style="margin-bottom:0">${q.text}</div>
+      </div>
+      <div class="opts">${scaleOpts.map((o,j)=>`
+        <button class="opt" id="op-MV-${i}-${j}" onclick="pickMot(${i},${j},'${q.id}',${o.s})">
+          <div class="dot"></div>${o.t}
+        </button>`).join('')}
+      </div>
+    </div>`).join('');
+
+  document.getElementById('learnQ').innerHTML=renderQs(LEARN_Qs,'L','var(--cyan)','CÓMO APRENDO');
+  document.getElementById('commQ').innerHTML=renderQs(COMM_Qs,'C','var(--purple)','COMUNICACIÓN');
+  document.getElementById('errorQ').innerHTML=renderQs(ERROR_Qs,'E','var(--yellow)','ERRORES');
+  document.getElementById('ctxQ').innerHTML=renderQs(CTX_Qs,'X','var(--navy)','CONTEXTO');
+  document.getElementById('matQ').innerHTML=MAT_Qs.map((d,i)=>`
+    <div class="qcard">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-size:18px">${d.icon}</span>
+        <span style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--gray)">${d.name}</span>
+      </div>
+      <div class="qtxt">${d.text}</div>
+      <div class="opts">${d.opts.map((o,j)=>`
+        <button class="opt" id="op-M-${i}-${j}" onclick="pick('M',${i},${j},${o.s})">
+          <div class="dot"></div>${o.t}
+        </button>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function renderQs(qs,pfx,color,label){
+  return qs.map((q,i)=>`
+    <div class="qcard">
+      <div class="qnum" style="color:${color}">${label} · ${i+1} DE ${qs.length}</div>
+      <div class="qtxt">${q.text}</div>
+      <div class="opts">${q.opts.map((o,j)=>`
+        <button class="opt" id="op-${pfx}-${i}-${j}" onclick="pick('${pfx}',${i},${j},'${o.v}')">
+          <div class="dot"></div>${o.t}
+        </button>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ── INTERACTIONS ─────────────────────────────────────────────
+function pickMot(qi,oi,motivatorId,score){
+  // Clear UI for this question
+  document.querySelectorAll(`[id^="op-MV-${qi}-"]`).forEach(b=>{b.classList.remove('sel');b.querySelector('.dot').textContent='';});
+  const b=document.getElementById(`op-MV-${qi}-${oi}`);
+  b.classList.add('sel');b.querySelector('.dot').textContent='✓';
+  // Store score for this motivator
+  S.motScores[motivatorId]=score;
+  S.motAnswers[qi]=motivatorId;
+}
+
+function pick(pfx,qi,oi,val){
+  document.querySelectorAll(`[id^="op-${pfx}-${qi}-"]`).forEach(b=>{b.classList.remove('sel');b.querySelector('.dot').textContent='';});
+  const b=document.getElementById(`op-${pfx}-${qi}-${oi}`);
+  b.classList.add('sel');b.querySelector('.dot').textContent='✓';
+  if(pfx==='L')S.learn[qi]=val;
+  else if(pfx==='C')S.comm[qi]=val;
+  else if(pfx==='E')S.err[qi]=val;
+  else if(pfx==='X')S.ctx[qi]=val;
+  else if(pfx==='M')S.mat[qi]=+val;
+}
+
+function toggleChip(el,type,val){
+  el.classList.toggle('sel');
+  if(type==='fort')S.fort=S.fort.includes(val)?S.fort.filter(v=>v!==val):[...S.fort,val];
+  else S.zona=S.zona.includes(val)?S.zona.filter(v=>v!==val):[...S.zona,val];
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function go(scr,pct,modN,modT){
+  showScreen(scr);
+  document.getElementById('pbar').style.width=pct+'%';
+  document.getElementById('pctLbl').textContent=pct+'%';
+  document.getElementById('modLabel').textContent=modN+' · ';
+  document.getElementById('modName').textContent=modT;
+}
+function startTest(){
+  const n=document.getElementById('fNombre').value.trim();
+  const c=document.getElementById('fCarrera').value.trim();
+  if(!n||!c){document.getElementById('vm0').style.display='block';return;}
+  document.getElementById('vm0').style.display='none';
+  S.nombre=n;S.carrera=c;S.univ=document.getElementById('fUniv').value.trim();S.wa=document.getElementById('fWA').value.trim();S.jefe=document.getElementById('fJefe').value.trim();
+  go('sc-proposito',5,'SECCIÓN 1','Mi Propósito');
+}
+function next(mod){
+  const map={
+    prop:()=>{S.purpose=document.getElementById('purposeTxt').value.trim();if(!S.purpose){document.getElementById('vm-prop').style.display='block';return;}document.getElementById('vm-prop').style.display='none';go('sc-motivadores',16,'SECCIÓN 2','Mis Motivadores');},
+    mot:()=>{if(S.motAnswers.filter(Boolean).length<MOT_Qs.length){document.getElementById('vm-mot').style.display='block';return;}document.getElementById('vm-mot').style.display='none';go('sc-fortalezas',27,'SECCIÓN 3','Mis Fortalezas');},
+    fort:()=>{S.fortExtra=document.getElementById('fortExtra').value.trim();if(![...S.fort,...(S.fortExtra?[S.fortExtra]:[])].length){document.getElementById('vm-fort').style.display='block';return;}document.getElementById('vm-fort').style.display='none';go('sc-zona',38,'SECCIÓN 4','Mi Zona de Reto');},
+    zona:()=>{S.zonaExtra=document.getElementById('zonaExtra').value.trim();if(![...S.zona,...(S.zonaExtra?[S.zonaExtra]:[])].length){document.getElementById('vm-zona').style.display='block';return;}document.getElementById('vm-zona').style.display='none';go('sc-aprendizaje',49,'SECCIÓN 5','Cómo Aprendo');},
+    learn:()=>{if(S.learn.filter(Boolean).length<LEARN_Qs.length){document.getElementById('vm-learn').style.display='block';return;}document.getElementById('vm-learn').style.display='none';go('sc-comunicacion',60,'SECCIÓN 6','Cómo Me Comunico');},
+    comm:()=>{if(S.comm.filter(Boolean).length<COMM_Qs.length){document.getElementById('vm-comm').style.display='block';return;}document.getElementById('vm-comm').style.display='none';go('sc-errores',71,'SECCIÓN 7','Errores');},
+    err:()=>{if(S.err.filter(Boolean).length<ERROR_Qs.length){document.getElementById('vm-err').style.display='block';return;}document.getElementById('vm-err').style.display='none';go('sc-contexto',82,'SECCIÓN 8','Mi Contexto');},
+    ctx:()=>{if(S.ctx.filter(Boolean).length<CTX_Qs.length){document.getElementById('vm-ctx').style.display='block';return;}document.getElementById('vm-ctx').style.display='none';go('sc-madurez',93,'SECCIÓN 9','Madurez Profesional');}
+  };
+  map[mod]&&map[mod]();
+}
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tab-c').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tab')[t==='self'?0:1].classList.add('active');
+  document.getElementById('tab-'+t).classList.add('active');
+}
+
+// ── RESULTS ──────────────────────────────────────────────────
+function buildResults(){
+  if(S.mat.filter(Boolean).length<MAT_Qs.length){document.getElementById('vm-mat').style.display='block';return;}
+
+  // Sort all 10 motivators by score descending
+  const sorted=Object.keys(MOTIVATORS_META)
+    .map(id=>({id, score: S.motScores[id]||0, ...MOTIVATORS_META[id]}))
+    .sort((a,b)=>b.score-a.score);
+  const top3=sorted.slice(0,3);
+
+  const lc={visual:0,auditivo:0,kinestesico:0};S.learn.forEach(v=>{if(v)lc[v]++;});
+  const lp=Object.entries(lc).sort((a,b)=>b[1]-a[1])[0][0];
+  const ec={bloqueo:0,oculta:0,reporta:0};S.err.forEach(v=>{if(v)ec[v]++;});
+  const ep=Object.entries(ec).sort((a,b)=>b[1]-a[1])[0][0];
+  const total=S.mat.reduce((a,b)=>a+b,0);
+  const mp=total<=8?'formacion':total<=12?'desarrollo':'listo';
+
+  const LP=LEARN_P[lp],EP=ERROR_P[ep],MP=MAT_P[mp];
+  const allFort=[...S.fort,...(S.fortExtra?[S.fortExtra]:[])];
+  const allZona=[...S.zona,...(S.zonaExtra?[S.zonaExtra]:[])];
+  const commLeaderTips=S.comm.filter(Boolean).map(v=>COMM_LEADER[v]||'').filter(Boolean);
+  const ctxTip=`${S.ctx[0]==='Estudia y trabaja'?'Este becario tiene doble carga. Su energía fuera del horario es limitada. Sé intencional con lo que le pides.':S.ctx[0]==='Solo trabaja'?'No tiene carga escolar activa. Puede tener mayor disponibilidad y enfoque.':'Su prioridad es la práctica y sus estudios.'} ${S.ctx[1]==='Más de 1 hora'?' Invierte más de 2 horas diarias en traslado — considera su energía al llegar.':S.ctx[1]==='30 min – 1 hora'?' Su traslado es moderado.':' Vive cerca — el traslado no es un factor de desgaste.'}`;
+
+  RESULT_DATA={nombre:S.nombre,carrera:S.carrera,univ:S.univ,wa:S.wa,jefe:S.jefe,purpose:S.purpose,top3:top3.map(m=>`${m.icon} ${m.name}`),motTips:top3.map(m=>({name:`${m.icon} ${m.name}`,tip:m.tip})),fort:allFort,zona:allZona,learnLabel:LP.label,learnIcon:LP.icon,learnTip:LP.tip,commTips:commLeaderTips,errorLabel:EP.label,errorIcon:EP.icon,errorTip:EP.tip,ctx0:S.ctx[0],ctx1:S.ctx[1],ctxTip,matBadge:MP.badge,matIcon:MP.icon,matTip:MP.tip};
+
+  document.getElementById('rName').textContent=S.nombre;
+  const meta=[];if(S.carrera)meta.push(S.carrera);if(S.univ)meta.push(S.univ);
+  meta.push(new Date().toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'}));
+  document.getElementById('rMeta').textContent=meta.join(' · ');
+
+  // Self
+  document.getElementById('sk-purpose').textContent=S.purpose;
+  const barColors=['var(--pink)','var(--cyan)','var(--lime)','var(--purple)','var(--yellow)','#ff9f43','#48dbfb','#ff6b9d','#1A2B5F','#a29bfe'];
+  const maxScore=sorted[0]?sorted[0].score:3;
+  document.getElementById('motBars').innerHTML=sorted.map((m,i)=>{
+    const pct=maxScore>0?(m.score/maxScore)*100:0;
+    return `<div class="motbar-row"><div class="motbar-name">${m.icon} ${m.name}</div><div class="motbar-track"><div class="motbar-fill" style="width:${pct}%;background:${barColors[i]||'var(--navy)'}"></div></div><div class="motbar-score" style="font-size:10px">${m.score===3?'★★★':m.score===1?'★':''}</div></div>`;
+  }).join('');
+  document.getElementById('sk-fort').innerHTML=allFort.map(f=>`<div class="chip-d">✓ ${f}</div>`).join('');
+  document.getElementById('sk-zona').innerHTML=allZona.map(z=>`<div class="chip-d">→ ${z}</div>`).join('');
+  document.getElementById('sk-learn').textContent=`${LP.icon} ${LP.label}`;document.getElementById('sk-learn-h').textContent=LP.self;
+  document.getElementById('sk-comm').textContent='💬 Tu estilo';document.getElementById('sk-comm-h').textContent=S.comm.filter(Boolean).map(v=>COMM_SELF[v]||'').filter(Boolean).join(' ');
+  document.getElementById('sk-err').textContent=`${EP.icon} ${EP.label}`;document.getElementById('sk-err-h').textContent=EP.self;
+  document.getElementById('sk-mat').textContent=MP.badge;document.getElementById('sk-mat-h').textContent=MP.self;
+
+  // Leader
+  document.getElementById('leaderCards').innerHTML=`
+    <div class="pcard"><div class="pcard-head h-purple"><div class="pcard-ico">📌</div><div class="pcard-meta"><strong>PROPÓSITO DEL BECARIO</strong><span>Por qué está aquí, en sus palabras</span></div></div>
+      <div class="pcard-body"><div class="tip-box" style="border-left:3px solid var(--purple)"><div class="tip-txt" style="font-style:italic;font-size:14px;font-weight:600;color:var(--navy)">"${S.purpose}"</div></div>
+        <div class="tip-box"><div class="tip-lbl">🎯 ZONA DE DESARROLLO QUE DECLARÓ</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">${allZona.map(z=>`<span class="mbadge">→ ${z}</span>`).join('')}</div></div>
+      </div></div>
+    <div class="pcard"><div class="pcard-head h-pink"><div class="pcard-ico">⭐</div><div class="pcard-meta"><strong>MOTIVADORES PRINCIPALES</strong><span>Lo que enciende su generador interno</span></div></div>
+      <div class="pcard-body"><div style="margin-bottom:12px">${top3.map(m=>`<span class="mbadge">${m.icon} ${m.name}</span>`).join('')}</div>
+        ${top3.map(m=>`<div class="tip-box"><div class="tip-lbl" style="color:var(--pink)">${m.icon} ${m.name.toUpperCase()}</div><div class="tip-txt">${m.tip}</div></div>`).join('')}
+      </div></div>
+    <div class="pcard"><div class="pcard-head h-lime"><div class="pcard-ico">💪</div><div class="pcard-meta"><strong>FORTALEZAS AUTOPERCIBIDAS</strong><span>Úsalas para asignar las primeras tareas</span></div></div>
+      <div class="pcard-body"><div style="display:flex;flex-wrap:wrap;gap:7px;margin:14px 0">${allFort.map(f=>`<span class="mbadge">✓ ${f}</span>`).join('')}</div>
+        <div class="tip-box"><div class="tip-lbl">🎯 CÓMO USARLAS</div><div class="tip-txt">Asígnale tareas que activen sus fortalezas declaradas en los primeros días. Genera confianza y establece una base de éxito desde la que puede crecer.</div></div>
+      </div></div>
+    <div class="pcard"><div class="pcard-head h-cyan"><div class="pcard-ico">${LP.icon}</div><div class="pcard-meta"><strong>APRENDIZAJE: ${LP.label.toUpperCase()}</strong><span>Cómo asignarle tareas e instrucciones</span></div></div>
+      <div class="pcard-body"><div class="tip-box"><div class="tip-lbl" style="color:var(--cyan)">🎯 ESTRATEGIA</div><div class="tip-txt">${LP.tip}</div></div></div></div>
+    <div class="pcard"><div class="pcard-head h-purple"><div class="pcard-ico">💬</div><div class="pcard-meta"><strong>ESTILO DE COMUNICACIÓN</strong><span>Cómo conectar con este becario</span></div></div>
+      <div class="pcard-body">${commLeaderTips.map(t=>`<div class="tip-box"><div class="tip-lbl" style="color:var(--purple)">🎯 APLICA ESTO</div><div class="tip-txt">${t}</div></div>`).join('')}</div></div>
+    <div class="pcard"><div class="pcard-head h-navy"><div class="pcard-ico">${EP.icon}</div><div class="pcard-meta"><strong>ANTE LOS ERRORES: ${EP.label.toUpperCase()}</strong><span>Cómo dar retroalimentación que funcione</span></div></div>
+      <div class="pcard-body"><div class="tip-box"><div class="tip-lbl" style="color:var(--cyan)">🎯 ESTRATEGIA</div><div class="tip-txt">${EP.tip}</div></div></div></div>
+    <div class="pcard"><div class="pcard-head h-yellow"><div class="pcard-ico">🌍</div><div class="pcard-meta"><strong>CONTEXTO DE VIDA</strong><span>La realidad con la que llega cada día</span></div></div>
+      <div class="pcard-body"><div class="ctx-grid"><div class="ctx-block"><div class="ctx-lbl">SITUACIÓN ACTUAL</div><div class="ctx-val">${S.ctx[0]||'—'}</div></div><div class="ctx-block"><div class="ctx-lbl">DISTANCIA AL TRABAJO</div><div class="ctx-val">${S.ctx[1]||'—'}</div></div></div>
+        <div class="tip-box"><div class="tip-lbl">🎯 TEN EN CUENTA</div><div class="tip-txt">${ctxTip}</div></div></div></div>
+    <div class="pcard"><div class="pcard-head h-lime"><div class="pcard-ico">${MP.icon}</div><div class="pcard-meta"><strong>${MP.badge}</strong><span>Nivel de madurez profesional al ingreso</span></div></div>
+      <div class="pcard-body"><div class="tip-box"><div class="tip-lbl" style="color:var(--lime)">🎯 SIGUIENTE MOVIMIENTO</div><div class="tip-txt">${MP.tip}</div></div></div></div>
+  `;
+  go('sc-results',100,'PERFIL COMPLETO',S.nombre);
+}
+
+// ── SEND ─────────────────────────────────────────────────────
+async function sendToLeader(){
+  const btn=document.getElementById('sendBtn');
+  btn.disabled=true;btn.style.opacity='.5';
+  document.getElementById('sendingMsg').style.display='block';
+  try{
+    const res=await fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify(RESULT_DATA)});
+    const data=await res.json();
+    document.getElementById('sendingMsg').style.display='none';
+    if(data.ok){const ok=document.getElementById('sentOk');ok.style.display='block';ok.textContent=RESULT_DATA.jefe?`✅ Perfil enviado a ${RESULT_DATA.jefe}`:'✅ ¡Perfil registrado exitosamente!';}
+    else{document.getElementById('sentErr').style.display='block';btn.disabled=false;btn.style.opacity='1';}
+  }catch(e){document.getElementById('sendingMsg').style.display='none';document.getElementById('sentErr').style.display='block';btn.disabled=false;btn.style.opacity='1';}
+}
+
+function restart(){
+  Object.assign(S,{nombre:'',carrera:'',univ:'',wa:'',jefe:'',purpose:'',motScores:{},motAnswers:[],fort:[],fortExtra:'',zona:[],zonaExtra:'',learn:[],comm:[],err:[],ctx:[],mat:[]});
+  ['fNombre','fCarrera','fUniv','fWA','fJefe'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('sendBtn').disabled=false;document.getElementById('sendBtn').style.opacity='1';
+  ['sendingMsg','sentOk','sentErr'].forEach(id=>document.getElementById(id).style.display='none');
+  switchTab('self');init();
+  go('sc-welcome',0,'INICIO','Perfil Profesional del Becario Asignado (PPBA)');
+}
+
+init();
+</script>
+</body>
+</html>
